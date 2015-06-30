@@ -1,0 +1,65 @@
+{% load cms_tags  menu_tags sekizai_tags %} 
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>УАвиаК</title>
+{% render_block "css" %}
+{% addtoblock "css" %}
+<link href="{{ MEDIA_URL }}css/style.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/startCSS.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/bottom.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/menu.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/navigation.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/content.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/gallery.css" rel="stylesheet" type="text/css" />
+<link href="{{ MEDIA_URL }}css/news.css" rel="stylesheet" type="text/css" />
+{% endaddtoblock %}
+</head>
+<body>
+<div class="background">
+	<div class="head">
+		<div class="logo"></div>
+		<div class="navigation">
+			<a href="#" class="home"></a>
+			<a href="#" class="mail"></a>
+			<a href="#" class="search"></a>
+		</div>
+		<div class="menu">
+			<ul>
+    			{% show_menu 0 0 100 100 %}
+			</ul>
+		</div>
+	</div>
+	<div class="body">
+	<div class="adress">г.Ульяновск, пр. Созидателей, 13 тел/факс : 20-56-71</div>
+	<div class="go_to_navigation"><a href="#">Мероприятия</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Новости</a></div>
+	<br><br>
+		<div class="general_content">
+			<div class="ul_li">
+			Навигация
+			<ul>
+				{% show_sub_menu 1 %}
+			</ul>
+			</div>
+			<div class="content">
+
+      {% placeholder base_content %}
+      {% block base_content%}Страница не найдена.{% endblock %}
+</div>
+</div>
+		{% block gallery %}{% endblock %}
+		{% block news %}{% endblock %}
+	</div>
+	<div class="bottom">
+			<div class="botommenu">
+			<ul>
+				{% show_menu 0 0 100 100 %}
+			</ul>
+			</div>
+			<font>Designed by Evgenii Ermolaev</font>
+	</div>
+</div>	
+{% render_block "js" %} 
+</body>
+</html>
