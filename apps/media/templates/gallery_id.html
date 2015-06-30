@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% load gallery_filters %}
+{% load cms_tags sekizai_tags %}
+
+
+{% block base_content %}
+{% placeholder template_1_content %}
+<h2>{{ albom.name }}</h2><hr />
+<div class="gallery">
+{% for image in albom|get_images %}
+	<a href="{{ MEDIA_URL }}{{ image.img }}"><img src="{{ MEDIA_URL }}{{ image.img }}" width="189" height="255" alt="{{ image.name }}" /></a>
+	<br />
+{% endfor %}
+</div>
+{% endblock %}

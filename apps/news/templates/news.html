@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% load cms_tags menu_tags sekizai_tags %}
+{% load pagination_tags %}
+{% load thumbnail %}
+{% render_block "css" %}
+
+
+{% block base_content %}
+  {% placeholder news_content %}
+<h2  class="hr2" >Новости</h2>
+{% autopaginate all_news 20 %}
+{% if all_news %}
+	{% for n in all_news %}<br>
+		<h3   class="hr" >{{ n.title|safe }}</h3>
+		{% thumbnail n.cover "80x80" crop="center" as im %}
+		<img  class="staff" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
+		{% endthumbnail %}
+		{{ n.short|safe }}
+		{{ n.date|date:"F j, Y" }}
+		<br /><br /><a href="/news/{{ n.id }}/">подробнее</a>
+		{% if n.albom and n.albom.is_published %} | <a href="/gallery/{{ n.albom.id }}/" >альбом</a>{% endif %}<br /><br /><br />
+	{% endfor %}<h3   class="hr" ></h3>
+{% endif %}
+{% paginate %}
+{% endblock %}
+

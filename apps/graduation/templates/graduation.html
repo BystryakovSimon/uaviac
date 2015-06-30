@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+{% load graduation_filters %}
+{% load cms_tags sekizai_tags %}
+
+
+
+{% block navigation_add %}
+<hr color="#5C8FB3" size=1px />
+Года выпуска
+	{% for g in graduations %}
+		<li><a href="{{ request.META.HTTP_CURRENT }}{{ g.year }}/">{{ g.year }}</a></li>
+	{% endfor %}
+{% endblock %}
+
+
+
+{% block base_content %}
+  {% placeholder graduation_content %}
+
+{% if graduation %}
+<H2 class="hr2">Год выпуска - {{ graduation.year }}</H2>
+	{% for group in graduation|groups %}
+		<strong><a href="#{{ group.name }}">{{ group.name }}</a></strong> - {{ group.form_master }}<br />
+	{% endfor %}
+	<br /><br />
+	{% for group in graduation|groups %}
+		<strong><a name="{{ group.name }}">Группа {{ group.name }}</a><br />
+		Специальность {{ group.specialty }}<br />
+		Классный руководитель - {{ group.form_master }}<br />
+		</strong>
+		{% for student in group|students %}
+			{% if student.img %}
+				<a href="{{ MEDIA_URL }}{{ student.img.img }}">
+				{{ student.fio }}
+				</a><br />
+			{% else %}
+				{{ student.fio }}<br />
+			{% endif %}
+		{% endfor %}
+		{% if group.albom %}<strong><a href="/gallery/{{ group.albom.id }}/">Выпускной альбом группы {{ group.name }}</a></strong>{% endif %}<br /><br />
+	{% endfor %}
+	{% if graduation.albom %}<strong><a href="/gallery/{{ graduation.albom.id }}/">Альбом выпуска {{ graduation.year }} года</a></strong>{% endif %}
+{% else %}
+<p>Нет данных по выпуску этого года</p>
+{% endif %}
+
+{% endblock %}

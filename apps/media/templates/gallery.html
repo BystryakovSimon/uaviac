@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% load cms_tags sekizai_tags pagination_tags thumbnail %}
+
+
+{% block base_content %}
+{% placeholder gallery_content %}
+<h2  class="hr3" >Галерея</h2>
+<div class="gallery_full">
+{% autopaginate all_alboms 14 %}
+{% for a in all_alboms %}
+	{% thumbnail a.cover "189x225" crop="center" as im %}
+	<a href="/gallery/{{ a.id }}/"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ a.name }}" /></a>
+	{% endthumbnail %}
+{% endfor %}
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% paginate %}
+</div>
+{% endblock %}

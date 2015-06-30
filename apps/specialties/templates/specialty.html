@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% load cms_tags sekizai_tags %}
+{% load thumbnail %}
+
+
+{% block navigation_add %}
+<hr color="#5C8FB3" size=1px />
+Специальности
+	{% for s in specialties %}
+		<li><a href="{{ s.cipher }}/">{{ s.name }}</a></li>
+	{% endfor %}
+{% endblock %}
+
+
+{% block base_content %}
+<h2 class="hr2">Квалификационная характеристика выпускника</h2>
+<table width="100%" border="1">
+	<tbody>
+		<tr>
+			<td valign="top" height="641" class="td">
+				<p align="center" class="style1">
+					<strong>Квалификационная характеристика выпускника по специальности</strong><br>
+					<strong>{{ specialty.cipher }} {{ specialty.name }} </strong><br>
+					<strong>(базовый уровень среднего профессионального образования)</strong></p>
+				{% thumbnail specialty.cover "x240" crop="center" as im %}
+				<img class="img_left" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" align="left" >
+				{% endthumbnail %}						
+				<p align="justify" class="style2">
+				{{ specialty.text|safe }}
+				</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+{% endblock %}
+

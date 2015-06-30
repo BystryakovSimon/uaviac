@@ -1,0 +1,29 @@
+{% load staff_filters %}
+{% load thumbnail %}
+
+
+{% for group in staff_group %}	
+
+	<H2 class="hr2">{{ group.staffgroupname }}</H2>
+	{% for staff in group|get_staff %}
+			{% thumbnail staff.photo "200x300" crop="center" as im %}
+			<img class="staff" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" ><br /><br />
+			{% endthumbnail %}
+			<center><b>{{ staff.fio }}</b></center><br /><br />
+            {% if staff.explain %}{{ staff.explain|safe }}<br /><br />{% endif %}
+            {% if staff.post %}{{ staff.post|safe }}<br /><br />{% endif %}
+            {% if staff.category %}{{ staff.category|safe }}<br /><br />{% endif %}
+            {% if staff.length_of_work %}{{ staff.length_of_work|safe }}<br /><br />{% endif %}
+            {% if staff.education %}{{ staff.education|safe }}<br /><br /><br /><br />{% endif %}
+        
+            {% if not staff.explain %}<br /><br />{% endif %}
+            {% if not staff.post %}<br /><br />{% endif %}
+            {% if not staff.category %}<br /><br />{% endif %}
+            {% if not staff.length_of_work %}<br /><br />{% endif %}
+            {% if not staff.education %}<br /><br /><br /><br />{% endif %}
+        
+{% if not forloop.last %}<hr color="#8199A9"  size="5px" />{% endif %}
+
+	{% endfor %}
+<hr color="#8199A9"  size="5px" />
+{% endfor %}

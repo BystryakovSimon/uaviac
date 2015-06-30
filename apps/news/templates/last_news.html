@@ -1,0 +1,20 @@
+{% load thumbnail %}
+<div class="news">
+	<img src="{{ STATIC_URL }}css/design/news.png" height="66" width="68"/>
+	Новости<br><br>
+		<div class="newsall">
+		<div class="center">
+			{% for n in last_news %}
+				<div class="newscont">
+				<h1>{{ n.title|safe }}</h1>
+				{% thumbnail n.cover "80x80" crop="center" as im %}
+				<img  class="last_news" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"  align="left">
+				{% endthumbnail %}
+				{{ n.short|safe|slice:":50" }}...<br>{{ n.date|date:"F j, Y" }}
+				<br /><a href="/news/{{ n.id }}/">подробнее</a>
+				{% if n.albom and n.albom.is_published %} | <a href="/gallery/{{ n.albom.id }}/" >альбом</a>{% endif %}
+				</div>
+			{% endfor %}  
+		</div>
+		</div>
+</div>

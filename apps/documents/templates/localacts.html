@@ -1,0 +1,29 @@
+{% load thumbnail %}
+<h2>Локальные акты</h2>
+<style type="text/css">
+.td {
+padding: 40px;
+}
+.td2 {
+padding: 20px;
+}</style>
+
+<table cellspacing="1" cellpadding="10" border="0">
+	<tbody>
+        <tr>
+    {% for l in localacts %}
+        {% if forloop.counter0|divisibleby:2 %}
+        </tr>
+		<tr>
+        {% endif %}
+			<td style="text-align: center;" colspan="3" class="td">
+                <a href="{{ l.act.url }}">
+                    {% thumbnail l.cover "x300" crop="center" as im %}
+                        <img height="300" src="{{ im.url}}">
+                    {% endthumbnail %}
+                    <br>
+				{{ l.name}}</a></td>
+    {% endfor %}
+        </tr>
+	</tbody>
+</table>

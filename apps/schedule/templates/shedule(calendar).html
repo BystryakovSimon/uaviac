@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+
+{% block navigation %}
+<div class="ul_li">
+Календарь
+</div>
+{{ calendar }}
+{% endblock %}
+
+{% block base_content %}
+{{ schedule.date|date:"l, d F Y" }}<br>
+{{ schedule.schedule_list|safe }}
+{% endblock %}

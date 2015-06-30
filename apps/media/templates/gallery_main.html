@@ -1,0 +1,19 @@
+{% load thumbnail %}
+<div class="photo">
+	<div class="ul_li_gallery">
+	<img src="{{ STATIC_URL }}css/design/gallery.png" height="66" width="68"/>
+	Наши мероприятия
+	<ul>
+		{% for a in alboms_list %}
+			<li><a href="/gallery/{{ a.id }}/">{{ a.name }}</a></li>
+		{% endfor %} 
+	</ul>
+	</div>
+	<div class="gallery">
+		{% for a in alboms %}
+			{% thumbnail a.cover "189x225" crop="center" as im %}
+			<a href="/gallery/{{ a.id }}/"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ a.name }}" /></a>
+			{% endthumbnail %}
+		{% endfor %} 
+	</div>
+</div>

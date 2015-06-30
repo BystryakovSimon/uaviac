@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% load cms_tags sekizai_tags %}
+{% load pagination_tags %}
+
+{% block base_content %}
+{% placeholder Zaochniki_content %}
+
+{% if auth_user and user.is_active %}
+	  <div id="auth-block">
+	    <h3>Книги для заочников группы  <span id="login">{% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}</span>
+	    <span class="splash">|</span>
+	    <a href="logout_user/" id="exit">Выйти</a></h3>
+	  </div>
+	  {% autopaginate books 2 %}
+	{% if books %}
+		{% for b in books %}
+		<a href="/media/{{ b.book }}">{{ b.name }}</a><br />
+		{% endfor %}
+	{% endif %}
+	{% paginate %}
+{% else %}
+<div id="left-column">
+    <div class="block">
+        <div class="content">
+        </div>
+        <div class="end-block"></div>
+    </div>
+</div>
+<div id="right-column">
+    <div id="main-content">
+        <h2 style="z-index: 100;position: relative;">Авторизация</h2>
+        <div id="auth-div">
+        <form method="post" action="auth/">
+                            {% csrf_token %}
+            <p><label for="id_username">Имя пользователя:</label> <input id="id_username" name="username" maxlength="30" type="text"></p>
+            <p><label for="id_password">Пароль:</label> <br /><input name="password" id="id_password" type="password"></p>
+            <input type="submit" value="Войти" class="submit_button" />
+        </form>
+        </div>
+    </div>
+    <div class="end-center-block"></div>
+</div>
+{% endif %}
+
+{% endblock %}

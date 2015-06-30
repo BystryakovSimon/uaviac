@@ -1,0 +1,29 @@
+{% load thumbnail %}
+<h2>Лицензии и свидетельства</h2>
+<style type="text/css">
+.td {
+padding: 40px;
+}
+.td2 {
+padding: 20px;
+}</style>
+
+<table cellspacing="1" cellpadding="10" border="0">
+	<tbody>
+        <tr>
+    {% for l in licenses %}
+        {% if forloop.counter|divisibleby:3 %}
+        </tr>
+		<tr>
+        {% endif %}
+			<td style="text-align: center;" colspan="3" class="td">
+				<a href="{{ l.license.url }}">
+                    {% thumbnail l.license "x300" crop="center" as im %}
+                        <img height="300" src="{{ im.url}}">
+                    {% endthumbnail %}
+                    <br>
+				{{ l.name}}</a></td>
+    {% endfor %}
+        </tr>
+	</tbody>
+</table>
